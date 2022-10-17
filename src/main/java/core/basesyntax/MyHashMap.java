@@ -17,33 +17,6 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
         this.size = 0;
     }
 
-    private static class Node<K, V> {
-        private  K key;
-        private  V value;
-        private Node<K, V> next;
-
-        public Node(K key, V value, Node<K, V>next) {
-            this.key = key;
-            this.value = value;
-            this.next = next;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(key, value);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            Node<K, V> node = null;
-            if(this.getClass().equals(obj))
-                node = (Node<K, V>) obj;
-            return this.key.equals(node.key) && this.value.equals(node.value);
-        }
-    }
-
-
-
     @Override
     public void put(K key, V value) {
         resize();
@@ -107,4 +80,18 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     public int getSize() {
         return size;
     }
+
+    private static class Node<K, V> {
+        private  K key;
+        private  V value;
+        private Node<K, V> next;
+
+        public Node(K key, V value, Node<K, V>next) {
+            this.key = key;
+            this.value = value;
+            this.next = next;
+        }
+    }
+
+
 }
