@@ -7,7 +7,6 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     private final static int  INITIAL_CAPACITY = 16;
     private final static double DEFAULT_LOAD_FACTOR = 0.75;
     private final static int SIZE_MULTIPLIER = 2;
-    private int current_capacity = 16;
     private Node<K, V>[] table;
 
     private int size;
@@ -42,10 +41,10 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     }
 
     private void resize() {
-        if(size >= current_capacity * DEFAULT_LOAD_FACTOR) {
-            current_capacity = current_capacity * SIZE_MULTIPLIER;
+        if(size >= table.length * DEFAULT_LOAD_FACTOR) {
+            int newCapacity = table.length * SIZE_MULTIPLIER;
             Node<K, V>[] oldTable = table;
-            table = new Node[current_capacity];
+            table = new Node[newCapacity];
             size=0;
             for(Node<K, V> node: oldTable) {
                 while (node != null) {
@@ -57,10 +56,8 @@ public class MyHashMap<K, V> implements MyMap<K, V> {
     }
 
     private int computeIndex(K key) {
-        return key == null ? 0 : Math.abs(key.hashCode()) % current_capacity;
+        return key == null ? 0 : Math.abs(key.hashCode()) % table.length;
     }
-
-
 
     @Override
     public V getValue(K key) {
